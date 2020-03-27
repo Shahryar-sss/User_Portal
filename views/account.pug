@@ -1,0 +1,46 @@
+doctype html
+html(lang='en')
+	head
+		meta(charset='UTF-8')
+		meta(name='viewport', content='width=device-width, initial-scale=1.0')
+		link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css')
+		script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js')
+		script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js')
+		title Account Page
+		style.
+			ul {
+			display: table;
+			margin: 0 auto;
+			margin-top: 5%;
+			font-size: large;
+			padding-right: 10px;
+			}
+			li {
+			margin-bottom: 10px;
+			}
+		script.
+			if(sessionStorage.getItem('token')==undefined)
+			{
+			window.location.href = '/index';
+			}
+			function showData() {
+			var details = "<li>" + sessionStorage.getItem('email') + "</li>";
+			details = details + "<li>" + sessionStorage.getItem('nickname') + "</li>";
+			document.getElementById('accountDetails').innerHTML = details;
+			document.getElementById('profileImg').src = "/image/"+sessionStorage.getItem('profileImage');
+			}
+			function logout() {
+			sessionStorage.removeItem('token');
+			sessionStorage.removeItem('email');
+			sessionStorage.removeItem('nickname');
+			sessionStorage.removeItem('profileImage');
+			window.location.href = '/';
+			}
+	body(onload='showData()')
+		.container
+			.text-center
+				img#profileImg(src='', alt='profileImage', style='margin-top: 5%; max-width: 200px; max-height: 200px;')
+			div
+				ul#accountDetails
+			.text-center(style='margin-top: 50px;')
+				button#logoutBtn.btn.btn-danger(name='logoutBtn', onclick='logout()', style='width: 200px;') Logout

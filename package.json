@@ -1,0 +1,30 @@
+{
+  "name": "user-portal",
+  "version": "1.0.0",
+  "description": "A portal where users can register and login. Upon loggin in, they will be able to view their profile picture",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --no-deprecation index.js"
+  },
+  "keywords": [
+    "node.js",
+    "mongoDB",
+    "login",
+    "register"
+  ],
+  "author": "Shahryar Saify",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "express": "^4.17.1",
+    "gridfs-stream": "^1.1.1",
+    "joi": "^14.3.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.9.6",
+    "multer": "^1.4.2",
+    "multer-gridfs-storage": "^4.0.2",
+    "pug": "^2.0.4"
+  }
+}

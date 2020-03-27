@@ -1,0 +1,90 @@
+doctype html
+html(lang='en')
+	head
+		meta(charset='UTF-8')
+		meta(name='viewport', content='width=device-width, initial-scale=1.0')
+		link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css')
+		script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js')
+		script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js')
+		title User Portal | Login
+		script.
+			if(sessionStorage.getItem('token')!=undefined)
+			{
+			window.location.href=window.location.href.split('/').slice(0,-1).join('/')+'/account.html';
+			}
+			function register() {
+			var email = document.getElementById('email').value;
+			var password = document.getElementById('password').value;
+			var nickname = document.getElementById('nickname').value;
+			if(document.getElementById('profileImage').value == ""){
+			alert("Please choose a profile image");
+			}
+			else {
+			$.ajax({
+			type: 'POST',
+			enctype: 'multipart/form-data',
+			url: '/register',
+			data: {
+			"email": email,
+			"password": password,
+			"nickname": nickname
+			},
+			contentType: 'application/x-www-form-urlencoded',
+			timeout: 6000,
+			success: function(response, status, xhr) {
+			uploadImage();
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+			alert(jqXHR.responseText);
+			console.log(jqXHR.responseText);
+			}
+			});
+			}
+			}
+			function uploadImage() {
+			const filedata = new FormData(document.getElementById('regForm'));
+			$.ajax({
+			type: 'POST',
+			enctype: 'multipart/form-data',
+			url: '/image',
+			data: filedata,
+			processData: false,
+			contentType: false,
+			cache: false,
+			timeout: 600000,
+			success: function(data) {
+			alert("Registered !")
+			window.location.href='/';
+			},
+			error: function(e) {
+			alert("Error occured while uploading file. Please try again");
+			console.log(e);
+			}
+			});
+			}
+	body
+		.container
+			.row
+				.col-xs-6.col-xs-offset-3
+					.panel.panel-primary(style='margin-top: 20%')
+						.panel-heading.text-center
+							h2 User Registration
+						.panel-body
+							form#regForm.was-validated(method='post', enctype='multipart/form-data')
+								.form-group
+									label(for='email') Email
+									input#email.form-control(type='text', name='email', placeholder='Email...', value='', required='')
+								.form-group
+									label(for='password') Password
+									input#password.form-control(type='password', name='password', placeholder='Password...', value='', required='')
+								.form-group
+									label(for='nickname') Nickname
+									input#nickname.form-control(type='text', name='nickname', placeholder='Nickname...', value='', required='')
+								.form-group(align='center')
+									input#profileImage.form-control-file(type='file', name='profileImage')
+								.form-group(align='center')
+									button#regBtn.btn.btn-info(type='button', onclick='register()', name='regBtn') Register
+								div
+									p
+										| Have an account ? 
+										a(href='/') Login
