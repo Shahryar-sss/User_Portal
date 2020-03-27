@@ -4,7 +4,7 @@
   "description": "A portal where users can register and login. Upon loggin in, they will be able to view their profile picture",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --no-deprecation index.js"
+    "start": "node index.js"
   },
   "keywords": [
     "node.js",

@@ -9,7 +9,7 @@ const Grid = require('gridfs-stream');
 const {User} = require('../models/user');
 
 const router = express.Router();
-const mongoURI = 'mongodb://localhost/User_Portal';
+const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost/User_Portal';
 
 const conn = mongoose.createConnection(mongoURI, {useNewUrlParser: true, useUnifiedTopology: true});
 
